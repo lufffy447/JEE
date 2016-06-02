@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<title>Step 5: Recipe Form</title>
+</head>
+<body>
+	<h1>Recipes List</h1>
+	<h:form>
+		<table>
+			<tr>
+				<th>Title</th>
+				<th>Type</th>
+				<th>Description</th>
+				<th>Expertise</th>
+				<th>Duration</th>
+				<th>NbPeople</th>
+				<th>Details</th>
+			</tr>
+			<ui:repeat value="#{searchRecipeList}" var="recipe">
+				<tr>
+					<td>#{recipe.title}</td>
+					<td>#{recipe.type}</td>
+					<td>#{recipe.description}</td>
+					<td>#{recipe.expertise}</td>
+					<td>#{recipe.duration}</td>
+					<td>#{recipe.nbpeople}</td>
+					<td><h:commandButton value="détails" action="#{recipeControler.displayRecipeDetail(recipe)}" />
+					</td>
+				</tr>
+			</ui:repeat>
+		</table>
+	</h:form>
+</body>
+</html>

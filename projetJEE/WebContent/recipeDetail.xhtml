@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<title>Step 5: Recipe Form</title>
+</head>
+<body>
+	<h1>Recipe Details</h1>
+	<h:form>
+		<table border="0">
+			<tr>
+				<td>Title</td>
+				<td><h:outputText id="recipeTitle"
+						value="#{displayRecipeDetails.title}" required="true">
+					</h:outputText></td>
+			</tr>
+			<tr>
+				<td>Type</td>
+				<td><h:outputText id="recipeType"
+						value="#{displayRecipeDetails.type}" required="true">
+					</h:outputText></td>
+			</tr>
+			<tr>
+				<td>Description</td>
+				<td><h:outputText id="recipeDescription"
+						value="#{displayRecipeDetails.description}" required="true">
+					</h:outputText></td>
+			</tr>
+			<tr>
+				<td>Expertise</td>
+				<td><h:outputText id="recipeExpertise"
+						value="#{displayRecipeDetails.expertise}" required="true">
+						<f:convertNumber integerOnly="true" type="number" />
+					</h:outputText></td>
+			</tr>
+			<tr>
+				<td>NbPeople</td>
+				<td><h:outputText id="recipeNbpeople"
+						value="#{displayRecipeDetails.nbpeople}" required="true">
+						<f:convertNumber integerOnly="true" type="number" />
+					</h:outputText></td>
+			</tr>
+			<tr>
+				<td>Duration</td>
+				<td><h:outputText id="recipeDuration"
+						value="#{displayRecipeDetails.duration}" required="true">
+						<f:convertNumber integerOnly="true" type="number" />
+					</h:outputText></td>
+			</tr>
+			<tr>
+				<td><h:commandLink value="Go Back"
+						action="recipeResultList" />
+				</td>
+			</tr>
+		</table>
+	</h:form>
+	<ui:fragment>
+		<h:form>
+			<table>
+			<tr>
+				<th>UserName</th>
+				<th>Date</th>
+				<th>Comment</th>
+			</tr>
+			<ui:repeat value="#{commentList}" var="comment">
+				<tr>
+					<td>#{comment.userName}</td>
+					<td>#{comment.date}</td>
+					<td>#{comment.comment}</td>
+				</tr>
+			</ui:repeat>				
+			</table>
+		</h:form>
+	</ui:fragment>
+	<ui:fragment rendered="#{loggedUser != null}">
+		<h:form>
+			<table>
+				<tr>
+					<th><label for="comment">Leave a comment </label> :</th>
+					<td><h:inputTextarea id="comment" value="#{commentBean.comment}" ></h:inputTextarea></td>
+				</tr>
+				<tr>
+					<th><h:commandButton action="menu" name="myCancel"
+								id="cancel" value="cancel" /></th>
+					<td><h:commandButton action="#{commentControlerBean.leaveComment(commentBean)}" name="myComment"
+								id="leaveComment" value="leave comment" /></td>
+				</tr>			
+			</table>
+		</h:form>
+	</ui:fragment>
+</body>
+</html>

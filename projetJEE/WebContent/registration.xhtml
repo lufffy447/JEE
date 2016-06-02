@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="template.xhtml">
+	<ui:define name="sectionTitle">
+		Registration
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<fieldset>
+				<legend>Registration</legend>
+				<table>
+					<tr>
+						<th><label for="fisrtName">First name</label> :</th>
+						<td><h:inputText type="text" name="myFirstName"
+								id="firstName" value="#{userSubmission.surname}"/></td>
+					</tr>
+					<tr>
+						<th><label for="lastName">Last name</label> :</th>
+						<td><h:inputText type="text" name="myLastName" id="lastName"  value="#{userSubmission.lastname}"/></td>
+					</tr>
+					<tr>
+						<th><label for="age">Age</label> :</th>
+						<td><h:inputText type="text" name="myAge" id="age"  value="#{userSubmission.age}"/></td>
+					</tr>
+					<tr>
+						<th><label for="email">Email address</label> :</th>
+						<td><h:inputText type="email" name="myEmail" id="email"  value="#{userSubmission.email}"/></td>
+					</tr>
+					<tr>
+						<th><label for="Login">Login</label> :</th>
+						<td><h:inputText type="login" name="myLogin" id="login"  value="#{userSubmission.login}"/></td>
+					</tr>
+					<tr>
+						<th><label for="pwd">Password</label> :</th>
+						<td><h:inputSecret type="password" name="myPwd" id="pwd"  value="#{userSubmission.pwd}"/></td>
+					</tr>
+					<tr>
+						<th><label for="repwd">Re-enter Password</label> :</th>
+						<td><h:inputSecret type="password" name="myRePwd" id="rePwd"  value="#{userSubmission.pwd}"/></td>
+					</tr>
+					<tr>
+						<th><h:commandButton action="index" name="myCancel"
+								id="cancel" value="cancel" /></th>
+						<td><h:commandButton action="#{userControler.checkAndAddUser(userSubmission)}" name="myRegister"
+								id="register" value="register" /></td>
+					</tr>
+				</table>
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

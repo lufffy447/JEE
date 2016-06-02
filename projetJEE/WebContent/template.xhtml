@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="sectionTitle">Default Section Title</ui:insert></title>
+	<h:outputStylesheet library="css" name="template.css" />
+	<h:outputStylesheet library="css" name="css.css" />
+</h:head>
+<h:body>
+	<div id="container">
+		<div class="header">
+			<div id="headTitle">
+				<h1 id="titreTemp">
+					<ui:insert name="sectionTitle">Default Section Title</ui:insert>
+				</h1>
+			</div>
+			<div id="headForm">
+				<ui:fragment rendered="#{loggedUser == null}">
+					<h:form>
+						<table border="0">
+							<tr>
+								<td>Your Login</td>
+								<td><h:inputText id="username" required="true"
+										value="#{loginB.login}">
+										<!--<f:validator validatorId="validators.username" />-->
+									</h:inputText></td>
+								<td><h:messages for="username" showDetail="true"
+										style="color:red" /></td>
+							</tr>
+							<tr>
+								<td>Your Password</td>
+								<td><h:inputSecret id="pwd" value="#{loginB.pwd}" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><h:commandButton
+										action="#{userControler.checkUser(loginB)}" value="OK" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><h:messages showDetail="true" style="color:red" /></td>
+							</tr>
+						</table>
+					</h:form>
+				</ui:fragment>
+				<ui:fragment rendered="#{loggedUser != null}">
+					<h:form>
+						<p>Welcome #{loggedUser.login}</p>
+						<p>There are currently #{userControler.count} connected users</p>
+						<h:commandLink action="#{userControler.logOut(loggedUser)}">
+							<p>LogOut</p>
+							<h:messages showDetail="true" style="color:red" />
+						</h:commandLink>
+					</h:form>
+				</ui:fragment>
+			</div>
+			<div id="headP">
+				<ui:fragment rendered="#{loggedUser == null}">
+					<h:form>
+						<h:commandLink action="registration">
+							<p>Become a Member !</p>
+						</h:commandLink>
+					</h:form>
+				</ui:fragment>
+			</div>
+		</div>
+		<div class="corebody">
+			<ui:insert name="body"> Default Section Content</ui:insert>
+		</div>
+	</div>
+	<div class="footer">
+		<div id="footTitle">
+			<h6>Copyright © GuMaQu</h6>
+		</div>
+		<div id="footImg">
+			<h:graphicImage library="images" name="logo.png" />
+		</div>
+	</div>
+</h:body>
+</html>

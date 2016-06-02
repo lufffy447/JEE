@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	template="template.xhtml">
+	<ui:define name="sectionTitle">
+		Menu
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+Sélectionner votre option
+		<table>
+				<tr>
+					<td class="colonne1"><h:commandLink action="#">
+							<p id="colonnes">Emergency</p>
+						</h:commandLink></td>
+					<td class="colonne2"><h:commandLink action="recipes">
+							<p id="colonnes">Recipes</p>
+						</h:commandLink></td>
+					<td class="colonne3"><h:commandLink action="#">
+							<p id="colonnes">Shop</p>
+						</h:commandLink></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td><h:commandButton action="index" value="Retour à l'index" /></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+
+<h:head>
+	<title>Menu</title>
+	<h:outputStylesheet library="css" name="css.css" />
+</h:head>
+<h:body>
+	<h1>Menu</h1>
+	<h:form>
+Sélectionner votre option
+		<table>
+			<tr>
+				<td class="colonne1"><h:commandLink action="#">
+						<p id="colonnes">Emergency</p>
+					</h:commandLink></td>
+				<td class="colonne2"><h:commandLink action="#">
+						<p id="colonnes">Recipes</p>
+					</h:commandLink></td>
+				<td class="colonne3"><h:commandLink action="#">
+						<p id="colonnes">Shop</p>
+					</h:commandLink></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</h:form>
+</h:body>
+<footer> Copyright © GuMaQu <h:graphicImage library="images"
+	name="logo.png" /> </footer>
+</html>-->

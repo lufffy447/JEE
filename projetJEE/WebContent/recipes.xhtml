@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	template="template.xhtml">
+	<ui:define name="sectionTitle">
+		Search Recipes
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+
+			<table>
+				<tr>
+					<td><h:graphicImage value="resources/images/horloge.png" /></td>
+					<td>Preparation Duration</td>
+					<td><h:graphicImage value="resources/images/note.png" /></td>
+					<td>Cook expertise</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><p:spinner min="0" value="#{searchRecipeB.duration}"/></td>
+					<td></td>
+					<td><p:rating value="#{searchRecipeB.expertise}" stars="5"></p:rating></td>
+				</tr>
+				<tr>
+					<td><h:graphicImage value="resources/images/note.png" /></td>
+					<td>For how many people</td>
+					<td><h:graphicImage value="resources/images/cook.png" /></td>
+					<td>Cook type</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><p:inputText id="txt1" value="#{searchRecipeB.nbpeople}" /> <p:slider
+							for="txt1" maxValue="10" minValue="0" /></td>
+					<td></td>
+					<td><p:selectOneMenu id="type" value="#{searchRecipeB.type}"
+							style="width:150px">
+							<f:selectItem itemLabel="Select Type" itemValue="" noSelectionOption="true" /><f:selectItems/>
+							<!-- <ui:repeat var="t" value="#{recipeControler.types}">
+								<f:selectItem itemValue="#{t}" itemLabel="#{t}"></f:selectItem>
+							</ui:repeat>-->
+							<f:selectItem itemValue="meat" itemLabel="meat"></f:selectItem>
+							<f:selectItem itemValue="salad" itemLabel="salad"></f:selectItem>
+						</p:selectOneMenu></td>
+				</tr>
+				<tr></tr>
+				<tr></tr>
+				<tr></tr>
+				<tr>
+					<td><h:commandButton action="menu" value="Retour au menu" /></td>
+					<td><h:commandButton action="#{recipeControler.searchRecipe(searchRecipeB)}" value="valider" /></td>
+				</tr>
+			</table>
+		</h:form>
+	</ui:define>
+</ui:composition>

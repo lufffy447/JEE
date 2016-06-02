@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	template="template.xhtml">
+	<ui:define name="sectionTitle">
+		Recipes List
+	</ui:define>
+	<ui:define name="body">
+	<h:form>
+		<table>
+			<tr>
+				<th>Title</th>
+				<th>Type</th>
+				<th>Description</th>
+				<th>Expertise</th>
+				<th>Duration</th>
+				<th>NbPeople</th>
+				<th>Details</th>
+			</tr>
+			<ui:repeat value="#{searchRecipeList}" var="recipe">
+				<tr>
+					<td>#{recipe.title}</td>
+					<td>#{recipe.type}</td>
+					<td>#{recipe.description}</td>
+					<td>#{recipe.expertise}</td>
+					<td>#{recipe.duration}</td>
+					<td>#{recipe.nbpeople}</td>
+					<td><h:commandButton value="détails" action="#{recipeControler.displayRecipeDetail(recipe)}" />
+					</td>
+				</tr>
+			</ui:repeat>
+		</table>
+	</h:form>	
+	</ui:define>
+	</ui:composition>

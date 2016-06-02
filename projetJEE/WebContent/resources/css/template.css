@@ -1,0 +1,64 @@
+*{
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
+}
+
+.header {
+	display: inline-block;
+	width: 100%;
+}
+
+.header #headTitle {
+	float: left;
+	width: 50%;
+	/*border: 1px solid black;*/
+}
+
+.header #headP {
+	width: 20%;
+	/*border: 1px solid red;*/
+	margin: auto;
+	text-align: right;
+}
+
+.header #headForm {
+	float: right;
+	width: 25%;
+	/*border: 1px solid green;*/
+} 
+
+.footer #footTitle {
+	float: left;
+}
+
+.footer #footImg {
+	float: right;
+}
+
+.footer {
+	height: 15%;
+	width: 100%;
+}
+
+#container {
+	min-height: 100%;
+	margin-bottom: -15%;
+}
+
+#container:after {
+  content: "";
+  display: block;
+}
+
+.corebody {
+	margin: auto;
+}
+
+.corebody form {
+	margin-top: 6em;
+	margin-left: 30%;
+	margin-right: 30%;
+}

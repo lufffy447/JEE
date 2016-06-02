@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<title>Step 5: Recipe Form</title>
+</head>
+<body>
+	<h1>Add Recipe</h1>
+	<h:form>
+		<table border="0">
+			<tr>
+				<td>Title</td>
+				<td><h:inputText id="recipeTitle"
+						value="#{recipeSubmissionModelBean.title}" required="true">
+					</h:inputText></td>
+			</tr>
+			<tr>
+				<td>Type</td>
+				<td><h:inputText id="recipeType"
+						value="#{recipeSubmissionModelBean.type}" required="true">
+					</h:inputText></td>
+			</tr>
+			<tr>
+				<td>Description</td>
+				<td><h:inputText id="recipeDescription"
+						value="#{recipeSubmissionModelBean.description}" required="true">
+					</h:inputText></td>
+			</tr>
+			<tr>
+				<td>Expertise</td>
+				<td><h:inputText id="recipeExpertise"
+						value="#{recipeSubmissionModelBean.expertise}" required="true">
+						<f:convertNumber integerOnly="true" type="number" />
+					</h:inputText></td>
+			</tr>
+			<tr>
+				<td>NbPeople</td>
+				<td><h:inputText id="recipeNbpeople"
+						value="#{recipeSubmissionModelBean.nbpeople}" required="true">
+						<f:convertNumber integerOnly="true" type="number" />
+					</h:inputText></td>
+			</tr>
+			<tr>
+				<td>Duration</td>
+				<td><h:inputText id="recipeDuration"
+						value="#{recipeSubmissionModelBean.duration}" required="true">
+						<f:convertNumber integerOnly="true" type="number" />
+					</h:inputText></td>
+			</tr>
+			<tr>
+				<td><h:commandLink value="OK" action="#{recipeControler.addRecipe(recipeSubmissionModelBean)}" />
+				</td>
+			</tr>
+		</table>
+	</h:form>
+</body>
+</html>

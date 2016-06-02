@@ -1,0 +1,34 @@
+body {
+	height: 100%;
+	width : 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.colonne1 {
+    background-color: yellow;
+}
+.colonne2 {
+    background-color: blue;
+}
+.colonne3 {
+    background-color: green;
+}
+
+#colonnes {
+	height: 10em;
+    width: 10em;
+    margin: auto;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    vertical-align: middle;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+
+
+/*td {
+	height: 50em;
+}*/
