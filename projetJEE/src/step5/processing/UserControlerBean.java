@@ -9,13 +9,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import com.sun.faces.context.FacesContextImpl;
-
 import step5.dao.fabric.DaoFabric;
 import step5.dao.instance.UserDao;
 import step5.model.LoginBean;
-import step5.model.RecipeListModelBean;
-import step5.model.RecipeModel;
 import step5.model.UserListModelBean;
 import step5.model.UserModelBean;
 import step5.model.UserSubmissionModelBean;

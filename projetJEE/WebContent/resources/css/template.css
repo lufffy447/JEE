@@ -62,3 +62,30 @@ html, body {
 	margin-left: 30%;
 	margin-right: 30%;
 }
+
+#headTitle
+{
+	max-width: 30%;
+	height: 100px;
+}
+
+.recipePage
+{
+	background-color: #5E96D5;
+}
+
+.emergencyPage
+{
+	background-color: #FE8709;
+}
+
+.adminPage
+{
+	background-color: #BE0005;
+	color: #FFFFFF;
+}
+
+.defaultPage
+{
+	background-color: #FFFFFF;
+}

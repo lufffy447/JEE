@@ -77,7 +77,27 @@ public class UserDao {
 				user = null;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
+	public UserModelBean checkAdmin(String login, String pwd) {
+		java.sql.Statement query;
+		UserModelBean user = null;
+		try {
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			String sql = "Select * from User as user where login ='admin' and pwd='admin' and user.id in (Select id from Admin)" ;
+
+			query = connection.prepareStatement(sql);
+			java.sql.ResultSet result = query.executeQuery(sql);
+			if(result.next() != false) {
+				user = new UserModelBean(result.getString("lastname"), result.getString("surname"), result.getInt("age"), result.getString("email"), result.getString("login"), result.getString("pwd"));
+			}else {
+				user = null;
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
@@ -86,9 +106,7 @@ public class UserDao {
 	
 	public void delete(UserModelBean user){
 		java.sql.Statement query;
-		//return value
 		try {
-		// create connection
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
 			String sql = "delete from User where surname ='"+user.getSurname()+"' and login='"+user.getLogin()+"'";
 			query = connection.prepareStatement(sql);
@@ -104,9 +122,7 @@ public class UserDao {
 	public UserModelBean getUserDetails(UserModelBean user){
 		java.sql.Statement query;
 		UserModelBean userDetails = null;
-		//return value
 		try {
-		// create connection
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
 			String sql = "Select * from User where surname ='"+user.getSurname()+"' and login='"+user.getLogin()+"'";
 			query = connection.prepareStatement(sql);

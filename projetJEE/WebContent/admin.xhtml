@@ -2,27 +2,34 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core" template="template.xhtml">
-	<ui:define name="sectionTitle">
-		Admin Connection
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="template.xhtml">
+	<ui:define name="leftHeaderSection">
+		<h1 id="titreTemp" class="adminPage">Administration</h1>
+	</ui:define>
+	<ui:define name="rightHeaderSection">
+	</ui:define>
+	<ui:define name="middleHeaderSection">
 	</ui:define>
 	<ui:define name="body">
-		<h1>Administration connexion</h1>
-		<h:form>
+		<h:form >
 			<fieldset>
 				<table>
 					<tr>
 						<th><label for="Login">Login</label> :</th>
-						<td><h:inputText type="login" name="myLogin" id="login" /></td>
+						<td><h:inputText name="myLogin" id="login" value="#{loginB.login}"/></td>
+																<!--<f:validator validatorId="validators.username" />-->
+						<td><h:messages for="login" showDetail="true" style="color:red" /></td>
 					</tr>
 					<tr>
 						<th><label for="pwd">Password</label> :</th>
-						<td><h:inputSecret type="password" name="myPwd" id="pwd" /></td>
+						<td><h:inputSecret name="myPwd" id="pwd" value="#{loginB.pwd}"/></td>
 					</tr>
 					<tr>
-						<td><h:commandButton type="submit" name="myGo" id="Go"
-								value="Go" /></td>
+						<td><h:commandButton action="#{adminControler.checkAdmin(loginB)}" name="adminLogin"
+								id="register" value="Ok" /></td>
 					</tr>
+					
 				</table>
 			</fieldset>
 		</h:form>
