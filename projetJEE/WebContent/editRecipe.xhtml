@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="template.xhtml">
+	<ui:define name="sectionTitle">
+		Edit Recipe
+	</ui:define>
+	<ui:define name="body">
+		<h1>admin editer recette</h1>
+		<h:form>
+			<fieldset>
+				<table>
+					<tr>
+						<th>Title</th>
+						<th>Suppression</th>
+						<th>Edition</th>
+					</tr>
+					<ui:repeat value="#{recipeControler.loadAllRecipe()}" var="recipe">
+						<tr>
+							<td>#{recipe.title}</td>
+							<td><h:commandButton value="delete" action="#{recipeControler.delete(recipe)}" /></td>
+							<td><h:commandButton value="détails" action="#{recipeControler.displayRecipeEdition(recipe)}" /></td>
+						</tr>
+					</ui:repeat>
+				</table>
+			</fieldset>
+			<fieldset>
+
+				<table>
+					<tr>
+						<td><label for="title">Title</label> : <h:inputText
+								type="text" name="myTitle" id="title" /></td>
+					</tr>
+					<tr>
+						<td><h:graphicImage value="resources/images/horloge.png" /></td>
+						<td>Preparation Duration</td>
+						<td><h:graphicImage value="resources/images/note.png" /></td>
+						<td>Cook expertise</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><p:spinner min="0" /></td>
+						<td></td>
+						<td><p:rating value="0" stars="5"></p:rating></td>
+					</tr>
+					<tr>
+						<td><h:graphicImage value="resources/images/note.png" /></td>
+						<td>For how many people</td>
+						<td><h:graphicImage value="resources/images/cook.png" /></td>
+						<td>Cook type</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><p:inputText id="txt1" value="#{sliderView.number1}" />
+							<p:slider for="txt1" maxValue="10" minValue="0" /></td>
+						<td></td>
+						<td><p:selectOneMenu id="city" value="#{dropdownView.recipe}"
+								style="width:150px">
+								<f:selectItem itemLabel="Select City" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItems value="#{dropdownView.recipes}" />
+							</p:selectOneMenu></td>
+					</tr>
+
+					<tr>
+						<h:inputText type="text" name="myCommentaire" id="commentaire" />
+						<h:commandButton type="submit" name="myCommentaire"
+							id="commentaireButton" value="Ajouter un commentaire" />
+					</tr>
+					<tr>
+						<th><h:commandButton type="submit" name="myCancel"
+								id="cancel" value="cancel" /></th>
+						<td><h:commandButton type="submit" name="mySave" id="save"
+								value="Save" /></td>
+					</tr>
+				</table>
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

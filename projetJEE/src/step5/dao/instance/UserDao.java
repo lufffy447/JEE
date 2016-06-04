@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import step5.model.RecipeModel;
 import step5.model.UserModelBean;
 
 public class UserDao {
@@ -81,5 +82,44 @@ public class UserDao {
 		}
 		
 		return user;
+	}
+	
+	public void delete(UserModelBean user){
+		java.sql.Statement query;
+		//return value
+		try {
+		// create connection
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			String sql = "delete from User where surname ='"+user.getSurname()+"' and login='"+user.getLogin()+"'";
+			query = connection.prepareStatement(sql);
+			java.sql.ResultSet results = query.executeQuery(sql);
+			results.close();
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	public UserModelBean getUserDetails(UserModelBean user){
+		java.sql.Statement query;
+		UserModelBean userDetails = null;
+		//return value
+		try {
+		// create connection
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			String sql = "Select * from User where surname ='"+user.getSurname()+"' and login='"+user.getLogin()+"'";
+			query = connection.prepareStatement(sql);
+			java.sql.ResultSet results = query.executeQuery(sql);
+			while(results.next()) {
+				userDetails = new UserModelBean(results.getString("surname"), results.getString("lastname"), results.getInt("age"), results.getString("email"), results.getString("login"), results.getString("pwd"));
+			}
+			results.close();
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userDetails;		
 	}
 }

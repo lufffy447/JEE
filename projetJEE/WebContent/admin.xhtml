@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="template.xhtml">
+	<ui:define name="sectionTitle">
+		Admin Connection
+	</ui:define>
+	<ui:define name="body">
+		<h1>Administration connexion</h1>
+		<h:form>
+			<fieldset>
+				<table>
+					<tr>
+						<th><label for="Login">Login</label> :</th>
+						<td><h:inputText type="login" name="myLogin" id="login" /></td>
+					</tr>
+					<tr>
+						<th><label for="pwd">Password</label> :</th>
+						<td><h:inputSecret type="password" name="myPwd" id="pwd" /></td>
+					</tr>
+					<tr>
+						<td><h:commandButton type="submit" name="myGo" id="Go"
+								value="Go" /></td>
+					</tr>
+				</table>
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -106,6 +106,45 @@ public class RecipesDao {
 		return "%"+data+"%";
 	}
 	
+	public void delete(RecipeModel recipe){
+		java.sql.Statement query;
+		//return value
+		try {
+		// create connection
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			String sql = "delete from Recipes where title ='"+recipe.getTitle()+"'";
+			query = connection.prepareStatement(sql);
+			java.sql.ResultSet results = query.executeQuery(sql);
+			results.close();
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	public RecipeModel getRecipeDetails(RecipeModel recipe){
+		java.sql.Statement query;
+		RecipeModel recipeDetails = null;
+		//return value
+		try {
+		// create connection
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			String sql = "Select * from Recipes where title='"+recipe.getTitle()+"'";
+			query = connection.prepareStatement(sql);
+			java.sql.ResultSet results = query.executeQuery(sql);
+			while(results.next()) {
+				recipeDetails = new RecipeModel(results.getInt("id"), results.getString("title"), results.getString("description"), results.getInt("expertise"), results.getInt("duration"), results.getInt("nbpeople"), results.getString("type"));
+			}
+			results.close();
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return recipeDetails;		
+	}
+	
 	/*public List<String> getAllTypes() {
 		java.sql.Statement query;
 		//return value

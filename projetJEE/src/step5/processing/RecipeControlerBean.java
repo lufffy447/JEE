@@ -29,7 +29,8 @@ public class RecipeControlerBean {
 		this.commentDao = DaoFabric.getInstance().createCommentDao();
 	}
 
-	public void loadAllRecipe() {
+	public ArrayList<RecipeModel> loadAllRecipe() {
+		System.out.println("HELLLLLLOOOOOOOOOOOOOOOOOOOOOOOO");
 		ArrayList<RecipeModel> list = this.recipeDao.getAllRecipes();
 		RecipeListModelBean recipeList = new RecipeListModelBean();
 		for (RecipeModel recipe : list) {
@@ -41,6 +42,7 @@ public class RecipeControlerBean {
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		// place la liste de recette dans l'espace de mémoire de JSF
 		sessionMap.put("recipeList", recipeList);
+		return list;
 	}
 	
 	public String addRecipe(RecipeModel recipe){
@@ -69,6 +71,16 @@ public class RecipeControlerBean {
 		sessionMap.put("displayRecipeDetails", recipe);
 		
 		return "recipeDetail";
+	}
+	
+	public void delete(RecipeModel recipe) {
+		this.recipeDao.delete(recipe);
+	}
+	
+	public RecipeModel displayRecipeEdition(RecipeModel recipe){
+		RecipeModel recipeDetails;
+		recipeDetails = this.recipeDao.getRecipeDetails(recipe);
+		return recipeDetails;
 	}
 		
 	/*public List<String> getTypes() {

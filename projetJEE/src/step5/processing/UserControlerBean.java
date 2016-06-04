@@ -1,5 +1,6 @@
 package step5.processing;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
@@ -13,6 +14,9 @@ import com.sun.faces.context.FacesContextImpl;
 import step5.dao.fabric.DaoFabric;
 import step5.dao.instance.UserDao;
 import step5.model.LoginBean;
+import step5.model.RecipeListModelBean;
+import step5.model.RecipeModel;
+import step5.model.UserListModelBean;
 import step5.model.UserModelBean;
 import step5.model.UserSubmissionModelBean;
 
@@ -79,5 +83,30 @@ public class UserControlerBean {
 			this.userDao.addUser(userSubmitted);
 		}
 		return "index";
+	}
+	
+	public ArrayList<UserModelBean> getAllUsers() {
+		ArrayList<UserModelBean> list = this.userDao.getAllUser();
+		UserListModelBean userList = new UserListModelBean();
+		for (UserModelBean user : list) {
+			userList.addUserList(user);
+		}
+		// récupère l'espace de mémoire de JSF
+		ExternalContext externalContext = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		// place la liste de recette dans l'espace de mémoire de JSF
+		sessionMap.put("userList", userList);
+		return list;
+	}
+	
+	public void delete(UserModelBean user) {
+		this.userDao.delete(user);
+	}
+	
+	public UserModelBean displayUserEdition(UserModelBean user){
+		UserModelBean userDetails;
+		userDetails = this.userDao.getUserDetails(user);
+		return userDetails;
 	}
 }

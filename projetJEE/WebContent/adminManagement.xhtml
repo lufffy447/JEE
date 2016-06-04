@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="template.xhtml">
+	<ui:define name="sectionTitle">
+		Admin Administration
+	</ui:define>
+	<ui:define name="body">
+		<h1>Administration gestion</h1>
+		<h:form>
+			<table>
+				<tr>
+					<td><fieldset>
+							<legend>Manage users</legend>
+							<label for="myGo"> Ajouter une image pour le click ici</label>
+							<h:commandButton action="editUser" type="submit" name="myManageUsers"
+								id="manageUsers" value="Manage Users" />
+						</fieldset></td>
+					<td>
+						<fieldset>
+							<legend>Manage Receipes</legend>
+							<label for="myGo"> Ajouter une image pour le click ici</label>
+							<h:commandButton action="editRecipe" type="submit" name="myManageReceipes"
+								id="manageReceipes" value="Manage Receipes" />
+						</fieldset>
+					</td>
+				</tr>
+			</table>
+		</h:form>
+	</ui:define>
+</ui:composition>
