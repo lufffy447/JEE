@@ -30,7 +30,6 @@ public class RecipeControlerBean {
 	}
 
 	public ArrayList<RecipeModel> loadAllRecipe() {
-		System.out.println("HELLLLLLOOOOOOOOOOOOOOOOOOOOOOOO");
 		ArrayList<RecipeModel> list = this.recipeDao.getAllRecipes();
 		RecipeListModelBean recipeList = new RecipeListModelBean();
 		for (RecipeModel recipe : list) {
