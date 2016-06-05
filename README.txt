@@ -35,6 +35,5 @@ FAIT :
 NON FAIT :
 
 	- protection de l’accès aux pages admin via URL
-	- message temporaire ajax de connexion réussie ou non
-	- footer ne colle pas au bas de la page	
+	- message temporaire ajax de connexion réussie ou non	
 	

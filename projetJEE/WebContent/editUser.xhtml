@@ -8,7 +8,7 @@
 	</ui:define>
 	<ui:define name="body">
 		<fieldset id="gridTable2">
-			<h:form>
+			<h:form rendered="#{loggedAdmin !=null}">
 
 				<table>
 					<tr>
@@ -36,7 +36,7 @@
 			</h:form>
 		</fieldset>
 		<fieldset id="gridTable">
-			<h:form rendered="#{userDetails.login != null}" id="grid">
+			<h:form rendered="#{userDetails.login != null and (loggedAdmin !=null)}" id="grid">
 				<table>
 					<tr>
 						<td><h:selectBooleanCheckbox binding="#{checkbox}"
@@ -93,7 +93,7 @@
 			</h:form>
 		</fieldset>
 		<fieldset id="gridTable3">
-			<h:form rendered="#{userDetails.login == null}" id="grid2">
+			<h:form rendered="#{userDetails.login == null and (loggedAdmin !=null)}" id="grid2">
 				<table>
 					<tr>
 						<td><h:selectBooleanCheckbox binding="#{checkbox2}"
@@ -150,8 +150,19 @@
 				
 			</h:form>
 		</fieldset>
-		<h:form>
+		<h:form  rendered="#{loggedAdmin != null}">
 			<h:commandButton action="adminManagement" name="retour" id="retour" value="retour"></h:commandButton>
+		</h:form>
+				<h:form rendered="#{loggedAdmin == null}">
+			<table>
+				<tr>
+				<td>You are not logged In as Admin</td>
+				</tr>
+				<tr>
+				<td><h:commandButton action="admin" name="loginAdmin"
+								id="loginAdmin" value="Log as Admin" /></td>
+								</tr>
+			</table>
 		</h:form>
 	</ui:define>
 </ui:composition>

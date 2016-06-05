@@ -19,7 +19,7 @@
 		</h:form>
 	</ui:define>
 	<ui:define name="body">
-		<h:form>
+		<h:form rendered="#{loggedAdmin != null}">
 			<table>
 				<tr>
 					<td><fieldset>
@@ -37,6 +37,17 @@
 						</fieldset>
 					</td>
 				</tr>
+			</table>
+		</h:form>
+		<h:form rendered="#{loggedAdmin == null}">
+			<table>
+				<tr>
+				<td>You are not logged In as Admin</td>
+				</tr>
+				<tr>
+				<td><h:commandButton action="admin" name="loginAdmin"
+								id="loginAdmin" value="Log as Admin" /></td>
+								</tr>
 			</table>
 		</h:form>
 	</ui:define>
