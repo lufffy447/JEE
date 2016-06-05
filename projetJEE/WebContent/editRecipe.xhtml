@@ -22,7 +22,7 @@
 	</ui:define>
 	<ui:define name="body">
 		<fieldset>
-			<h:form>
+			<h:form rendered="#{loggedAdmin != null}">
 
 				<table>
 					<tr>
@@ -45,7 +45,7 @@
 			</h:form>
 		</fieldset>
 		<fieldset>
-			<h:form rendered="#{recipeDetails.title != null}">
+			<h:form rendered="#{recipeDetails.title != null and (loggedAdmin != null)}">
 
 				<table>
 					<tr>
@@ -77,10 +77,10 @@
 						<td></td>
 						<td><p:selectOneMenu id="city" value="#{recipeDetails.type}"
 								style="width:150px">
-								<f:selectItem itemLabel="Salad" itemValue="Salad" />
-								<f:selectItem itemLabel="Meal" itemValue="Meal" />
-								<f:selectItem itemLabel="Fish" itemValue="Fish" />
-								<f:selectItem itemLabel="Dessert" itemValue="Dessert" />
+								<f:selectItem itemLabel="salad" itemValue="salad" />
+								<f:selectItem itemLabel="meal" itemValue="meal" />
+								<f:selectItem itemLabel="fish" itemValue="fish" />
+								<f:selectItem itemLabel="dessert" itemValue="dessert" />
 							</p:selectOneMenu></td>
 					</tr>
 					<tr>
@@ -96,7 +96,7 @@
 					</tr>
 				</table>
 			</h:form>
-			<h:form rendered="#{recipeDetails.title == null}">
+			<h:form rendered="#{recipeDetails.title == null and (loggedAdmin != null)}">
 
 				<table>
 					<tr>
@@ -128,10 +128,10 @@
 						<td></td>
 						<td><p:selectOneMenu id="city" value="#{recipeDetails.type}"
 								style="width:150px">
-								<f:selectItem itemLabel="Salad" itemValue="Salad" />
-								<f:selectItem itemLabel="Meal" itemValue="Meal" />
-								<f:selectItem itemLabel="Fish" itemValue="Fish" />
-								<f:selectItem itemLabel="Dessert" itemValue="Dessert" />
+								<f:selectItem itemLabel="salad" itemValue="salad" />
+								<f:selectItem itemLabel="meat" itemValue="meat" />
+								<f:selectItem itemLabel="fish" itemValue="fish" />
+								<f:selectItem itemLabel="dessert" itemValue="dessert" />
 							</p:selectOneMenu></td>
 					</tr>
 					<tr>
@@ -140,13 +140,26 @@
 							</td>
 					</tr>
 					<tr>
-						<th><h:commandButton type="submit" name="myCancel"
-								id="cancel" value="cancel" /></th>
+
 						<td><h:commandButton type="submit" name="mySave" action="#{recipeControler.addRecipe(recipeDetails)}"
 								value="Save" /></td>
 					</tr>
 				</table>
 			</h:form>
+					<h:form  rendered="#{loggedAdmin != null}">
+			<h:commandButton action="adminManagement" name="retour" id="retour" value="retour"></h:commandButton>
+		</h:form>
+				<h:form rendered="#{loggedAdmin == null}">
+			<table>
+				<tr>
+				<td>You are not logged In as Admin</td>
+				</tr>
+				<tr>
+				<td><h:commandButton action="admin" name="loginAdmin"
+								id="loginAdmin" value="Log as Admin" /></td>
+								</tr>
+			</table>
+		</h:form>
 		</fieldset>
 	</ui:define>
 </ui:composition>

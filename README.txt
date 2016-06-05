@@ -24,7 +24,7 @@ FAIT :
 		- affichage du nombres d’utilisateurs actuellement connectés
 	- devenir membre à partir de toutes les pages si non connecté
 	
-	- page d’administration (admin.jsf)
+	- page d’administration (http://localhost:8080/stepByStep/admin.jsf)
 		- utilisateur (admin, password)
 	- page de choix de gestion des utilisateurs et recettes
 	- page d’édition d’utilisateur (supprimer, éditer, créer)
@@ -34,6 +34,7 @@ FAIT :
 
 NON FAIT :
 
-	- protection de l’accès aux pages admin via URL
-	- message temporaire ajax de connexion réussie ou non	
+	- message temporaire ajax de connexion réussie ou non
+	- Les deux boutons Emergency et Shop n’ont pas été implémentés (Clicker dessus ne fera rien on vous aura prévenu)
+	- Pour la page menu.jsf (ainsi que pour le reste) on s’excuse on est pas des designers	
 	
