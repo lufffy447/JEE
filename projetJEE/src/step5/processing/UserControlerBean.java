@@ -27,6 +27,7 @@ import step5.model.UserSubmissionModelBean;
 public class UserControlerBean {
 	private UserDao userDao;
 	private int count = 0;
+	private String message = "";
 
 	public UserControlerBean() {
 		this.userDao = DaoFabric.getInstance().createUserDao();
@@ -48,15 +49,18 @@ public class UserControlerBean {
 			// place l'utilisateur dans l'espace de mémoire de JSF
 			sessionMap.put("loggedUser", user);
 			// redirect the current page
+			setMessage("Login Successful ! Welcome");
 			return "index";
 		} else {
 			// redirect the current page
-			externalContext.addMessage(null, new FacesMessage("Unknow Login try again"));
+			//externalContext.addMessage(null, new FacesMessage("Unknow Login try again"));
+			setMessage("Logging In Failed ! Please Try Again");
 			return "index";
 		}
 	}
 	
 	public String logOut(UserModelBean user) {
+		setMessage("");
 		FacesContext externalContext = FacesContext.getCurrentInstance();
 		Map<String, Object> sessionMap = externalContext.getExternalContext().getSessionMap();
 		if(sessionMap.get("loggedUser") == user) {
@@ -191,6 +195,14 @@ public class UserControlerBean {
 			otherInput.getAttributes().put("styleClass", "ui-input-valid");
 			comp.getAttributes().put("styleClass", "ui-input-valid");
 		}		
+	}
+	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 }

@@ -40,7 +40,7 @@
 									<td></td>
 									<td>
 									<h:commandButton action="#{userControler.checkUser(loginB)}" value="OK" >
-										<!--<f:ajax render="validateLogin" execute="@form"/>-->
+										<f:ajax render="validateLogin" execute="@form" onevent="#{userControler.checkUser(loginB)}"/>
 									</h:commandButton>
 									</td>
 								</tr>
@@ -72,11 +72,8 @@
 							</h:commandLink>
 						</h:form>
 					</ui:fragment>
-					<ui:fragment rendered="#{loggedUser != null}">
-						<h:form>
-							<h:outputText id="validateLogin"/>
-						</h:form>
-					</ui:fragment>					
+					<!--<p:ajaxStatus oncomplete="setTimeout(function() { $('#validateLogin').slideUp(); },5000)"/>	-->
+					<h:outputText id="validateLogin" value="#{userControler.message}" />
 				</ui:insert>
 			</div>
 		</div>

@@ -39,12 +39,17 @@ public class commentControlerBean{
 			Map<String, Object> sessionMap = externalContext.getExternalContext().getSessionMap();
 			// place l'utilisateur dans l'espace de mémoire de JSF
 			UserModelBean user = (UserModelBean) sessionMap.get("loggedUser");
+			List<CommentBean> comments = new ArrayList<CommentBean>();
+			comments = (List<CommentBean>) sessionMap.get("commentList");
+			comments.add(comment);
+			sessionMap.put("commentList", comments);
 			int idR = (int) sessionMap.get("idR");
 			comment.setIdR(idR);
 			comment.setUserName(user.getLogin());
 			comment.setDate(dateFormat.format(date));
 			this.commentDao.addComment(comment);
 		}
+		
 	}
 	
 	/*public void getAllComments(){

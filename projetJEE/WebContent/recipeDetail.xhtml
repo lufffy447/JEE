@@ -1,77 +1,84 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
-<head>
-<title>Step 5: Recipe Form</title>
-</head>
-<body>
-	<h1>Recipe Details</h1>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	template="template.xhtml">
+	<ui:define name="sectionTitle">
+		Recipe Details
+	</ui:define>
+	<ui:define name="body">
 	<h:form>
-		<table border="0">
+		<table>
 			<tr>
-				<td>Title</td>
-				<td><h:outputText id="recipeTitle"
-						value="#{displayRecipeDetails.title}" required="true">
-					</h:outputText></td>
-			</tr>
-			<tr>
-				<td>Type</td>
-				<td><h:outputText id="recipeType"
-						value="#{displayRecipeDetails.type}" required="true">
-					</h:outputText></td>
-			</tr>
-			<tr>
-				<td>Description</td>
-				<td><h:outputText id="recipeDescription"
-						value="#{displayRecipeDetails.description}" required="true">
-					</h:outputText></td>
-			</tr>
-			<tr>
-				<td>Expertise</td>
-				<td><h:outputText id="recipeExpertise"
-						value="#{displayRecipeDetails.expertise}" required="true">
-						<f:convertNumber integerOnly="true" type="number" />
-					</h:outputText></td>
-			</tr>
-			<tr>
-				<td>NbPeople</td>
-				<td><h:outputText id="recipeNbpeople"
-						value="#{displayRecipeDetails.nbpeople}" required="true">
-						<f:convertNumber integerOnly="true" type="number" />
-					</h:outputText></td>
-			</tr>
-			<tr>
-				<td>Duration</td>
-				<td><h:outputText id="recipeDuration"
-						value="#{displayRecipeDetails.duration}" required="true">
-						<f:convertNumber integerOnly="true" type="number" />
-					</h:outputText></td>
-			</tr>
-			<tr>
-				<td><h:commandLink value="Go Back"
-						action="recipeResultList" />
+				<td>
+					<table id="table1">
+						<tr>
+							<td><h:graphicImage value="resources/images/cook.png" width="40%"/></td>
+							<td><h:outputText id="recipeType" value="#{displayRecipeDetails.type}" required="true"/></td>
+						</tr>
+						<tr>
+							<td><h:graphicImage value="resources/images/horloge.png" width="40%" /></td>
+							<td><h:outputText id="recipeDuration" value="#{displayRecipeDetails.duration} minutes" required="true"/></td>
+						</tr>
+						<tr>
+							<td><h:graphicImage value="resources/images/people.png" width="40%" /></td>
+							<td><h:outputText id="recipeNbpeople" value="#{displayRecipeDetails.nbpeople} persons" required="true"/></td>
+						</tr>
+						<tr>
+							<td><h:graphicImage value="resources/images/note.png" width="40%" /></td>
+							<td><p:rating value="#{displayRecipeDetails.expertise}" stars="5" readonly="true"></p:rating></td>
+						</tr>
+						
+						
+						<!-- <h:outputText id="recipeDuration" value="#{displayRecipeDetails.duration}" required="true"/>
+						<h:outputText id="recipeNbpeople" value="#{displayRecipeDetails.nbpeople}" required="true"/>
+						<h:outputText id="recipeExpertise" value="#{displayRecipeDetails.expertise}" required="true"/>-->
+					</table>
+				</td>
+				<td>
+					<table id="table2">
+						<tr>
+							<td><h:outputText id="recipeTitle" value="#{displayRecipeDetails.title}" required="true" styleClass="title"/></td>
+						</tr>
+						<tr>
+							<td><h:outputText id="recipeDescription" value="#{displayRecipeDetails.description}" required="true" styleClass="desc"/></td>
+						</tr>
+					</table>
 				</td>
 			</tr>
 		</table>
-	</h:form>
+	</h:form>		
 	<ui:fragment>
-		<h:form>
-			<table>
+		<h:form id="commentForm">
+			<table id="table3">
 			<tr>
 				<th>UserName</th>
 				<th>Date</th>
 				<th>Comment</th>
 			</tr>
+			<h:panelGroup id="listeComment">
 			<ui:repeat value="#{commentList}" var="comment">
 				<tr>
-					<td>#{comment.userName}</td>
+					<td>
+						<table id="table4">
+							<tr>
+								<td>
+									<h:graphicImage value="resources/images/people.png" width="10%" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									#{comment.userName}
+								</td>
+							</tr>
+						</table>
+					</td>
 					<td>#{comment.date}</td>
 					<td>#{comment.comment}</td>
 				</tr>
-			</ui:repeat>				
+			</ui:repeat>
+			</h:panelGroup>		
 			</table>
 		</h:form>
 	</ui:fragment>
@@ -80,16 +87,18 @@
 			<table>
 				<tr>
 					<th><label for="comment">Leave a comment </label> :</th>
-					<td><h:inputTextarea id="comment" value="#{commentBean.comment}" ></h:inputTextarea></td>
+					<td><h:inputTextarea id="comment" value="#{commentBean.comment}" rows="10" cols="50"></h:inputTextarea></td>
 				</tr>
 				<tr>
 					<th><h:commandButton action="menu" name="myCancel"
 								id="cancel" value="cancel" /></th>
-					<td><h:commandButton action="#{commentControlerBean.leaveComment(commentBean)}" name="myComment"
-								id="leaveComment" value="leave comment" /></td>
+					<td><h:commandButton action="#{commentControlerBean.leaveComment(commentBean)}" name="myComment" id="leaveComment" value="leave comment" >
+							<f:ajax render="listeComment" execute="@form"/>
+						</h:commandButton>		
+					</td>
 				</tr>			
 			</table>
 		</h:form>
 	</ui:fragment>
-</body>
-</html>
+</ui:define>
+</ui:composition>
