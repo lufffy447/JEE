@@ -17,12 +17,14 @@ import step5.dao.instance.RecipesDao;
 import step5.model.CommentBean;
 import step5.model.RecipeListModelBean;
 import step5.model.RecipeModel;
+import step5.model.RepeatPaginator;
 
 @ManagedBean(name="recipeControler")
 @ApplicationScoped
 public class RecipeControlerBean {
 	private RecipesDao recipeDao;
 	private CommentDao commentDao;
+	private RepeatPaginator paginator;
 
 	public RecipeControlerBean() {
 		this.recipeDao = DaoFabric.getInstance().createRecipesDao();
@@ -55,6 +57,7 @@ public class RecipeControlerBean {
 				.getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		sessionMap.put("searchRecipeList", recipeList);
+		paginator = new RepeatPaginator(recipeList);
 		return "recipesList";
 	}
 	
@@ -81,7 +84,13 @@ public class RecipeControlerBean {
 		recipeDetails = this.recipeDao.getRecipeDetails(recipe);
 		return recipeDetails;
 	}
+
+	public RepeatPaginator getPaginator() {
+		return paginator;
+	}
 		
+	
+	
 	/*public List<String> getTypes() {
 		System.out.println("hello");
 		List<String> types = new ArrayList<String>();

@@ -49,7 +49,7 @@
 			</tr>
 		</table>
 	</h:form>		
-	<ui:fragment>
+
 		<h:form id="commentForm">
 			<table id="table3">
 			<tr>
@@ -80,11 +80,10 @@
 			</ui:repeat>
 			</h:panelGroup>		
 			</table>
-		</h:form>
-	</ui:fragment>
+
 	<ui:fragment rendered="#{loggedUser != null}">
-		<h:form>
-			<table>
+		
+			<table id="table5">
 				<tr>
 					<th><label for="comment">Leave a comment </label> :</th>
 					<td><h:inputTextarea id="comment" value="#{commentBean.comment}" rows="10" cols="50"></h:inputTextarea></td>
@@ -93,12 +92,13 @@
 					<th><h:commandButton action="menu" name="myCancel"
 								id="cancel" value="cancel" /></th>
 					<td><h:commandButton action="#{commentControlerBean.leaveComment(commentBean)}" name="myComment" id="leaveComment" value="leave comment" >
-							<f:ajax render="listeComment" execute="@form"/>
+							<f:ajax render="commentForm" execute="@form"/>
 						</h:commandButton>		
 					</td>
 				</tr>			
 			</table>
-		</h:form>
+		
 	</ui:fragment>
+	</h:form>
 </ui:define>
 </ui:composition>
