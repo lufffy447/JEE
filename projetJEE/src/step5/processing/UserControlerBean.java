@@ -2,10 +2,14 @@ package step5.processing;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -105,4 +109,95 @@ public class UserControlerBean {
 		userDetails = this.userDao.getUserDetails(user);
 		return userDetails;
 	}
+	
+	public void validateName(FacesContext context, UIComponent comp, Object value) {
+		String name = (String) value;
+		Pattern p = Pattern.compile("[a-zA-Z0-9]+");
+		Matcher m = p.matcher(name);
+		if(!m.matches()) {
+            ((UIInput) comp).setValid(false);
+            
+            FacesMessage message = new FacesMessage(
+                    "Name should match pattern [a-zA-Z0-9]+");
+            context.addMessage(comp.getClientId(context), message);	
+            
+            comp.getAttributes().put("styleClass", "ui-input-invalid");
+		}
+		else {
+			comp.getAttributes().put("styleClass", "ui-input-valid");
+		}
+	}
+	
+	public void validateAge(FacesContext context, UIComponent comp, Object value) {
+		int age = (int) value;
+		if(age > 100 || age <=0) {
+            ((UIInput) comp).setValid(false);
+            
+            FacesMessage message = new FacesMessage(
+                    "Age should be between 1 and 100");
+            context.addMessage(comp.getClientId(context), message);	
+            
+            comp.getAttributes().put("styleClass", "ui-input-invalid");
+		}
+		else {
+			comp.getAttributes().put("styleClass", "ui-input-valid");
+		}		
+	}
+	
+	public void validateEmail(FacesContext context, UIComponent comp, Object value) {
+		String email = (String) value;
+		Pattern p = Pattern.compile("[a-zA-Z0-9-._]+@[a-zA-Z0-9-._]+.[a-z]+");
+		Matcher m = p.matcher(email);
+		if(!m.matches()) {
+            ((UIInput) comp).setValid(false);
+            
+            FacesMessage message = new FacesMessage(
+                    "Email should match pattern [a-zA-Z0-9-._]+@[a-zA-Z0-9-._]+.[a-z]+");
+            context.addMessage(comp.getClientId(context), message);			
+            
+            comp.getAttributes().put("styleClass", "ui-input-invalid");
+		}
+		else {
+			comp.getAttributes().put("styleClass", "ui-input-valid");
+		}		
+	}
+	
+	public void validateLogin(FacesContext context, UIComponent comp, Object value) {
+		String login = (String) value;
+		Pattern p = Pattern.compile("[a-zA-Z0-9-._]+");
+		Matcher m = p.matcher(login);
+		if(!m.matches()) {
+            ((UIInput) comp).setValid(false);
+            
+            FacesMessage message = new FacesMessage(
+                    "Login should match pattern [a-zA-Z0-9-._]+");
+            context.addMessage(comp.getClientId(context), message);		
+            
+            comp.getAttributes().put("styleClass", "ui-input-invalid");
+		}
+		else {
+			comp.getAttributes().put("styleClass", "ui-input-valid");
+		}		
+	}
+	
+	public void validatePassword(FacesContext context, UIComponent comp, Object value) {
+		UIInput otherInput = (UIInput)comp.findComponent("pwd");
+	    String otherPass = (String)otherInput.getValue();
+	    String pass = (String) value;
+		if(!pass.equals(otherPass)) {
+            ((UIInput) comp).setValid(false);
+            
+            FacesMessage message = new FacesMessage(
+                    "Passwords should be similar !");
+            context.addMessage(comp.getClientId(context), message);		
+            
+            otherInput.getAttributes().put("styleClass", "ui-input-invalid");
+            comp.getAttributes().put("styleClass", "ui-input-invalid");
+		}
+		else {
+			otherInput.getAttributes().put("styleClass", "ui-input-valid");
+			comp.getAttributes().put("styleClass", "ui-input-valid");
+		}		
+	}
+	
 }

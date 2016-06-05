@@ -12,31 +12,46 @@
 					<tr>
 						<th><label for="fisrtName">First name</label> :</th>
 						<td><h:inputText type="text" name="myFirstName"
-								id="firstName" value="#{userSubmission.surname}"/></td>
+								id="firstName" value="#{userSubmission.surname}" required="true" requiredMessage="Veuillez remplir le prénom"
+								validator="#{userControler.validateName}"></h:inputText></td>
+								<td><h:messages for="firstName" showDetail="false" style="color:red" /></td>
 					</tr>
 					<tr>
 						<th><label for="lastName">Last name</label> :</th>
-						<td><h:inputText type="text" name="myLastName" id="lastName"  value="#{userSubmission.lastname}"/></td>
+						<td><h:inputText type="text" name="myLastName" id="lastName"  value="#{userSubmission.lastname}" required="true" requiredMessage="Veuillez remplir le nom"
+						validator="#{userControler.validateName}"></h:inputText></td>
+						<td><h:messages for="lastName" showDetail="false" style="color:red" /></td>
 					</tr>
 					<tr>
 						<th><label for="age">Age</label> :</th>
-						<td><h:inputText type="text" name="myAge" id="age"  value="#{userSubmission.age}"/></td>
+						<td><h:inputText type="text" name="myAge" id="age"  value="#{userSubmission.age}" required="true" 
+						requiredMessage="Veuillez remplir l'age" size="3"
+						validator="#{userControler.validateAge}"></h:inputText></td>
+						<td><h:messages for="age" showDetail="false" style="color:red" /></td>
 					</tr>
 					<tr>
 						<th><label for="email">Email address</label> :</th>
-						<td><h:inputText type="email" name="myEmail" id="email"  value="#{userSubmission.email}"/></td>
+						<td><h:inputText type="email" name="myEmail" id="email"  value="#{userSubmission.email}" required="true" requiredMessage="Veuillez remplir l'email"
+						validator="#{userControler.validateEmail}"></h:inputText></td>
+						<td><h:messages for="email" showDetail="false" style="color:red" /></td>
 					</tr>
 					<tr>
 						<th><label for="Login">Login</label> :</th>
-						<td><h:inputText type="login" name="myLogin" id="login"  value="#{userSubmission.login}"/></td>
+						<td><h:inputText type="login" name="myLogin" id="login"  value="#{userSubmission.login}" required="true" requiredMessage="Veuillez remplir le login"
+						validator="#{userControler.validateLogin}"></h:inputText></td>
+						<td><h:messages for="login" showDetail="false" style="color:red" /></td>
 					</tr>
 					<tr>
 						<th><label for="pwd">Password</label> :</th>
-						<td><h:inputSecret type="password" name="myPwd" id="pwd"  value="#{userSubmission.pwd}"/></td>
+						<td><h:inputSecret type="password" name="myPwd" id="pwd"  value="#{userSubmission.pwd}" required="true" requiredMessage="Veuillez remplir le mot de passe" 
+						></h:inputSecret></td>
+						<td><h:messages for="pwd" showDetail="false" style="color:red" /></td>
 					</tr>
 					<tr>
 						<th><label for="repwd">Re-enter Password</label> :</th>
-						<td><h:inputSecret type="password" name="myRePwd" id="rePwd"  value="#{userSubmission.pwd}"/></td>
+						<td><h:inputSecret type="password" name="myRePwd" id="rePwd"  value="#{userSubmission.pwd}" required="true" requiredMessage="Veuillez remplir de nouveau le mot de passe"
+						validator="#{userControler.validatePassword}"></h:inputSecret></td>
+						<td><h:messages for="rePwd" showDetail="false" style="color:red" /></td>
 					</tr>
 					<tr>
 						<th><h:commandButton action="index" name="myCancel"
