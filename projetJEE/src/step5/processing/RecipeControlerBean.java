@@ -17,6 +17,8 @@ import step5.dao.instance.RecipesDao;
 import step5.model.CommentBean;
 import step5.model.RecipeListModelBean;
 import step5.model.RecipeModel;
+import step5.model.RecipeSubmissionModelBean;
+import step5.model.UserModelBean;
 
 @ManagedBean(name="recipeControler")
 @ApplicationScoped
@@ -40,7 +42,7 @@ public class RecipeControlerBean {
 				.getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		// place la liste de recette dans l'espace de mémoire de JSF
-		sessionMap.put("recipeList", recipeList);
+		sessionMap.put("recipeList", recipeList.getRecipeList());
 		return list;
 	}
 	
@@ -76,16 +78,27 @@ public class RecipeControlerBean {
 		this.recipeDao.delete(recipe);
 	}
 	
-	public RecipeModel displayRecipeEdition(RecipeModel recipe){
-		RecipeModel recipeDetails;
-		recipeDetails = this.recipeDao.getRecipeDetails(recipe);
-		return recipeDetails;
+	public void updateRecipe(RecipeModel recipe) 
+	{
+		this.recipeDao.updateRecipe(recipe);
 	}
+	
+	public void displayRecipeEdition(RecipeModel recipe)
+	{
+		ExternalContext externalContext = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getSessionMap();
 		
-	/*public List<String> getTypes() {
-		System.out.println("hello");
-		List<String> types = new ArrayList<String>();
-		types = this.recipeDao.getAllTypes();
-		return types;
-	}*/
+		requestMap.put("recipeDetails", recipe);
+	}
+	
+	public void displayRecipeCreation()
+	{
+		ExternalContext externalContext = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getSessionMap();
+		RecipeModel recipe = new RecipeModel(0, null, null, 0, 0, 0, null);
+		requestMap.put("recipeDetails", recipe);
+	}	
+ 
 }

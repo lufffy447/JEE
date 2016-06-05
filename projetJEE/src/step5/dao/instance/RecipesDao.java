@@ -41,6 +41,28 @@ public class RecipesDao {
 		}
 	}
 	
+	public void updateRecipe(RecipeModel recipe) {
+		java.sql.Statement query;
+		System.out.println(recipe);
+		try {
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			String sql = "UPDATE Recipes SET "
+					+ "title = '"+recipe.getTitle()+"', "
+					+ "description = '"+recipe.getDescription()+"', "
+					+ "expertise = '"+recipe.getExpertise()+"', "
+					+ "duration = '"+recipe.getDuration()+"', "
+					+ "nbpeople = '"+recipe.getNbpeople()+"',"
+					+ "type = '"+recipe.getType()+"'"
+					+ "WHERE id='"+recipe.getId()+"'";
+			query = connection.prepareStatement(sql);
+			query.executeUpdate(sql);
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	}
+	
 	public ArrayList<RecipeModel> getAllRecipes() {
 		java.sql.Statement query;
 		//return value
@@ -112,10 +134,9 @@ public class RecipesDao {
 		try {
 		// create connection
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
-			String sql = "delete from Recipes where title ='"+recipe.getTitle()+"'";
+			String sql = "delete from Recipes where id ='"+recipe.getId()+"'";
 			query = connection.prepareStatement(sql);
-			java.sql.ResultSet results = query.executeQuery(sql);
-			results.close();
+			query.executeUpdate(sql);
 			query.close();
 			connection.close();
 		} catch (SQLException e) {

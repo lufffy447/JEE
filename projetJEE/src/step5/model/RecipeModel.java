@@ -1,6 +1,12 @@
 package step5.model;
 
-public class RecipeModel {
+import java.io.Serializable;
+
+public class RecipeModel implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String title;
 	private String description;
@@ -63,7 +69,7 @@ public class RecipeModel {
 	}
 	
 	public String toString() {
-		return "[TITLE]:"+this.getTitle()+",[DESCRIPTION]:"+this.getDescription()+",[EXPERTISE]:"+this.getExpertise()+",[DURATION]:"+this.getDuration()+",[NBPEOPLE]:"+this.getNbpeople()+",[TYPE]:"+this.getType();
+		return "[ID]:"+this.getId()+"[TITLE]:"+this.getTitle()+",[DESCRIPTION]:"+this.getDescription()+",[EXPERTISE]:"+this.getExpertise()+",[DURATION]:"+this.getDuration()+",[NBPEOPLE]:"+this.getNbpeople()+",[TYPE]:"+this.getType();
 
 	}
 }
