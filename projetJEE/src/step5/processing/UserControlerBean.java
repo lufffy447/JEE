@@ -84,7 +84,7 @@ public class UserControlerBean {
 				&& userSubmitted.getPwd() != null
 				&& userSubmitted.getSurname() != null) {
 			// ajout de l'utilisateur à la base de données
-			this.userDao.addUser(userSubmitted);
+			this.userDao.addUser(userSubmitted, false);
 		}
 		return "index";
 	}

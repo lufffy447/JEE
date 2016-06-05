@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import step5.model.RecipeModel;
 import step5.model.UserModelBean;
 
 public class UserDao {
@@ -23,7 +22,7 @@ public class UserDao {
 		dB_PWD = DB_PWD;
 	}
 	
-	public void addUser(UserModelBean user) {
+	public void addUser(UserModelBean user, boolean isAdmin) {
 		// Création de la requête
 		java.sql.Statement query;
 		try {
@@ -37,6 +36,8 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		setUserAdmin(user, isAdmin);
 	}
 	
 	public ArrayList<UserModelBean> getAllUser(){
@@ -108,9 +109,8 @@ public class UserDao {
 		java.sql.Statement query;
 		try {
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
-			String sql = "delete from User where surname ='"+user.getSurname()+"' and login='"+user.getLogin()+"'";
+			String sql = "delete from User where login='"+user.getLogin()+"'";
 			query = connection.prepareStatement(sql);
-			System.out.println(query.toString());
 			query.executeUpdate(sql);
 			query.close();
 			connection.close();
@@ -138,6 +138,8 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
+		
+		setUserAdmin(user, isAdmin);
 	}
 	
 	public UserModelBean getUserDetails(UserModelBean user){
@@ -162,13 +164,20 @@ public class UserDao {
 	
 	private void setUserAdmin(UserModelBean user, boolean isAdmin)
 	{
-		// Création de la requête
 		java.sql.Statement query;
+		String sql = null;
+		
 		try {
-			// create connection
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
-			//String sql = "Select * from Admin"
-			String sql = "INSERT INTO User(lastname, surname, age, email, login, pwd) VALUES('"+user.getLastname()+"','"+user.getSurname()+"','"+user.getAge()+"','"+user.getEmail()+"','"+user.getLogin()+"','"+user.getPwd()+"')";
+			
+			if (isAdmin)
+			{
+				sql = "INSERT INTO Admin(login) VALUES ('"+user.getLogin()+"') ON DUPLICATE KEY UPDATE login = '"+user.getLogin()+"'";
+			}
+			else
+			{
+				sql = "DELETE FROM Admin where login='"+user.getLogin()+"'";
+			}
 			query = connection.prepareStatement(sql);
 			query.executeUpdate(sql);
 			query.close();
@@ -176,5 +185,25 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean isAdmin(UserModelBean user)
+	{
+		java.sql.Statement query;
+		boolean answer = false;
+		try {
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			String sql = "Select * from Admin where login='"+user.getLogin()+"'";
+			query = connection.prepareStatement(sql);
+			java.sql.ResultSet results = query.executeQuery(sql);
+
+			answer = (results.getFetchSize() > 0);
+			results.close();
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return answer;		
 	}
 }
