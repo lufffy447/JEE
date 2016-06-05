@@ -9,6 +9,8 @@ Se connecter à l’url:
 	utilisateur lambda : (test, test)
 	utilisateur admin : (admin, password)	
 
+	Les sources java sont dans la step 5 
+
 FAIT : 
 	
 	- template avec header + body + footer
