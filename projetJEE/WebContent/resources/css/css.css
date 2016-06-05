@@ -74,6 +74,11 @@ body {
 	margin-right: 30%;
 }
 
+#gridTable, #gridTable2, #gridTable3 {
+	margin-left: 30%;
+	margin-right: 30%;
+}
+
 #table6, #table7 {
 	width: 200px;
 	height: 200px;
