@@ -38,8 +38,11 @@
 								</tr>
 								<tr>
 									<td></td>
-									<td><h:commandButton
-											action="#{userControler.checkUser(loginB)}" value="OK" /></td>
+									<td>
+									<h:commandButton action="#{userControler.checkUser(loginB)}" value="OK" >
+										<!--<f:ajax render="validateLogin" execute="@form"/>-->
+									</h:commandButton>
+									</td>
 								</tr>
 								<tr>
 									<td></td>
@@ -69,6 +72,11 @@
 							</h:commandLink>
 						</h:form>
 					</ui:fragment>
+					<ui:fragment rendered="#{loggedUser != null}">
+						<h:form>
+							<h:outputText id="validateLogin"/>
+						</h:form>
+					</ui:fragment>					
 				</ui:insert>
 			</div>
 		</div>

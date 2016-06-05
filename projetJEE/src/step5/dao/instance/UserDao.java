@@ -110,8 +110,8 @@ public class UserDao {
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
 			String sql = "delete from User where surname ='"+user.getSurname()+"' and login='"+user.getLogin()+"'";
 			query = connection.prepareStatement(sql);
-			java.sql.ResultSet results = query.executeQuery(sql);
-			results.close();
+			System.out.println(query.toString());
+			query.executeUpdate(sql);
 			query.close();
 			connection.close();
 		} catch (SQLException e) {
