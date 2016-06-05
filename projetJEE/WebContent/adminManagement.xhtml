@@ -11,7 +11,7 @@
 	</ui:define>
 	<ui:define name="rightHeaderSection">
 		<h:form>
-			<p>Welcome #{loggedUser.login}</p>
+			<p>Welcome #{loggedAdmin.surname}</p>
 			<h:commandLink action="#{adminControler.logOut(loggedAdmin)}">
 				<p>Log out</p>
 			</h:commandLink>

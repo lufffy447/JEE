@@ -29,7 +29,7 @@ public class AdminControlerBean
 	
 	public String checkAdmin(LoginBean loginBean) 
 	{
-		UserModelBean user = this.userDao.checkUser(loginBean.getLogin(),
+		UserModelBean user = this.userDao.checkAdmin(loginBean.getLogin(),
 				loginBean.getPwd());
 		FacesContext externalContext = FacesContext.getCurrentInstance();
 		if (user != null) 
@@ -48,6 +48,8 @@ public class AdminControlerBean
 			return "admin";
 		}
 	}
+	
+
 	
 	public String logOut(UserModelBean user) 
 	{
@@ -102,5 +104,33 @@ public class AdminControlerBean
 		{
 			return "";
 		}
+	}
+	
+	public String deleteUser(UserModelBean user)
+	{
+		this.userDao.delete(user);
+		
+		return "";
+	}
+	
+	public String updateUser(UserModelBean user, boolean isAdmin)
+	{
+		this.userDao.updateUser(user, isAdmin);
+		
+		return "";
+	}
+	
+	public String createUser(UserModelBean user, boolean isAdmin)
+	{
+		if (user.getAge() > 0 
+				&& user.getLastname() != null
+				&& user.getLogin() != null
+				&& user.getPwd() != null
+				&& user.getSurname() != null) 
+		{
+			//this.userDao.addUser(user, isAdmin);
+		}
+		
+		return "";
 	}
 }

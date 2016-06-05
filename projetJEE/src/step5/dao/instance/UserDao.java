@@ -41,7 +41,6 @@ public class UserDao {
 	
 	public ArrayList<UserModelBean> getAllUser(){
 		java.sql.Statement query;
-		//return value
 		ArrayList<UserModelBean> userList=new ArrayList<UserModelBean>();
 		try {
 		// create connection
@@ -88,7 +87,8 @@ public class UserDao {
 		UserModelBean user = null;
 		try {
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
-			String sql = "Select * from User as user where login ='admin' and pwd='admin' and user.id in (Select id from Admin)" ;
+			String sql = "Select * from User where login ='"+login+"' "
+					+ "and pwd='"+pwd+"' and '"+login+"' in (Select login from Admin)" ;
 
 			query = connection.prepareStatement(sql);
 			java.sql.ResultSet result = query.executeQuery(sql);
@@ -119,6 +119,27 @@ public class UserDao {
 		}		
 	}
 	
+	public void updateUser(UserModelBean user, boolean isAdmin){
+		java.sql.Statement query;
+		try {
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			String sql = "UPDATE User SET "
+					+ "pwd = '"+user.getPwd()+"', "
+					+ "email = '"+user.getEmail()+"', "
+					+ "age = '"+user.getAge()+"', "
+					+ "lastname = '"+user.getLastname()+"', "
+					+ "surname = '"+user.getSurname()+"' "
+					+ "WHERE login='"+user.getLogin()+"'";
+			query = connection.prepareStatement(sql);
+			java.sql.ResultSet results = query.executeQuery(sql);
+			results.close();
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	}
+	
 	public UserModelBean getUserDetails(UserModelBean user){
 		java.sql.Statement query;
 		UserModelBean userDetails = null;
@@ -137,5 +158,23 @@ public class UserDao {
 			e.printStackTrace();
 		}
 		return userDetails;		
+	}
+	
+	private void setUserAdmin(UserModelBean user, boolean isAdmin)
+	{
+		// Création de la requête
+		java.sql.Statement query;
+		try {
+			// create connection
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			//String sql = "Select * from Admin"
+			String sql = "INSERT INTO User(lastname, surname, age, email, login, pwd) VALUES('"+user.getLastname()+"','"+user.getSurname()+"','"+user.getAge()+"','"+user.getEmail()+"','"+user.getLogin()+"','"+user.getPwd()+"')";
+			query = connection.prepareStatement(sql);
+			query.executeUpdate(sql);
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
