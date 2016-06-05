@@ -6,6 +6,20 @@
 	<ui:define name="leftHeaderSection">
 		<h1 id="titreTemp" class="adminPage">Edit User</h1>
 	</ui:define>
+		<ui:define name="middleHeaderSection">
+		<p>Last admin connection:
+			#{adminControler.getLastConnectionDate()}
+			#{adminControler.getLastConnectionDuration()}</p>
+	</ui:define>
+	<ui:define name="rightHeaderSection">
+		<h:form>
+			<p>Welcome #{loggedAdmin.surname}</p>
+			<h:commandLink action="#{adminControler.logOut(loggedAdmin)}">
+				<p>Log out</p>
+			</h:commandLink>
+
+		</h:form>
+	</ui:define>
 	<ui:define name="body">
 		<fieldset id="gridTable2">
 			<h:form rendered="#{loggedAdmin !=null}">
@@ -91,8 +105,6 @@
 					</tr>
 				</table>
 			</h:form>
-		</fieldset>
-		<fieldset id="gridTable3">
 			<h:form rendered="#{userDetails.login == null and (loggedAdmin !=null)}" id="grid2">
 				<table>
 					<tr>
