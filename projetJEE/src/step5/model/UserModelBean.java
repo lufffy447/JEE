@@ -11,7 +11,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
-@ManagedBean
+@ManagedBean(name="userB")
 @SessionScoped
 public class UserModelBean implements Serializable{
 	/**

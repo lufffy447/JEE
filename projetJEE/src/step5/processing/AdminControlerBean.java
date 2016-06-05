@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import step5.dao.fabric.DaoFabric;
@@ -116,7 +117,6 @@ public class AdminControlerBean
 	public String updateUser(UserModelBean user, boolean isAdmin)
 	{
 		this.userDao.updateUser(user, isAdmin);
-		
 		return "";
 	}
 	
@@ -138,4 +138,22 @@ public class AdminControlerBean
 	{
 		return this.userDao.isAdmin(user);
 	}
+	
+	public void displayUserEdition(UserModelBean user)
+	{
+		ExternalContext externalContext = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getSessionMap();
+		requestMap.put("userDetails", user);
+	}
+	
+	public void displayUserCreation()
+	{
+		ExternalContext externalContext = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getSessionMap();
+		UserModelBean user = new UserModelBean(null, null, 0, null, null, null);
+		requestMap.put("userDetails", user);
+	}
+	
 }

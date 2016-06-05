@@ -131,8 +131,7 @@ public class UserDao {
 					+ "surname = '"+user.getSurname()+"' "
 					+ "WHERE login='"+user.getLogin()+"'";
 			query = connection.prepareStatement(sql);
-			java.sql.ResultSet results = query.executeQuery(sql);
-			results.close();
+			query.executeUpdate(sql);
 			query.close();
 			connection.close();
 		} catch (SQLException e) {
@@ -196,8 +195,13 @@ public class UserDao {
 			String sql = "Select * from Admin where login='"+user.getLogin()+"'";
 			query = connection.prepareStatement(sql);
 			java.sql.ResultSet results = query.executeQuery(sql);
-
-			answer = (results.getFetchSize() > 0);
+			if(results.next() != false) {
+				answer = true;
+			}
+			else
+			{
+				answer = false;
+			}
 			results.close();
 			query.close();
 			connection.close();

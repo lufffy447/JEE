@@ -6,14 +6,15 @@
 	<ui:define name="leftHeaderSection">
 		<h1 id="titreTemp" class="adminPage">Edit User</h1>
 	</ui:define>
-	<h1>admin editer user</h1>
 	<ui:define name="body">
-		<h:form>
-			<fieldset>
+		<fieldset>
+			<h:form>
+
 				<table>
 					<tr>
 						<th>Name</th>
 						<th>Login</th>
+						<th>Admin</th>
 						<th>Suppression</th>
 						<th>Edition</th>
 					</tr>
@@ -21,54 +22,132 @@
 						<tr>
 							<td>#{user.surname}</td>
 							<td>#{user.login}</td>
-							<td><h:commandButton value="delete" action="#{adminControler.deleteUser(user)}" /></td>
-							<td><h:commandButton value="détails" action="#{userControler.displayUserEdition(user)}" /></td>
+							<td><h:selectBooleanCheckbox disabled="true"
+									value="#{adminControler.isAdmin(user)}" /></td>
+							<td><h:commandButton value="delete"
+									action="#{adminControler.deleteUser(user)}" /></td>
+							<td><h:commandButton value="détails"
+									action="#{adminControler.displayUserEdition(user)}" /></td>
 						</tr>
 					</ui:repeat>
 				</table>
-			</fieldset>		
-			<fieldset>
+										<h:commandButton value="détails"
+								action="#{adminControler.displayUserCreation}" />
+			</h:form>
+		</fieldset>
+		<fieldset>
+			<h:form rendered="#{userDetails.login != null}" id="grid">
 				<table>
 					<tr>
-						<th><label for="fisrtName">First name</label> :</th>
-						<td><h:inputText type="text" name="myFirstName"
-								id="firstName" /></td>
-						<h:outputText value="Admin: " />
-						<p:selectBooleanCheckbox  />
-
+						<td><h:selectBooleanCheckbox binding="#{checkbox}"
+								value="false" /></td>
 					</tr>
 					<tr>
-						<th><label for="lastName">Last name</label> :</th>
-						<td><h:inputText type="text" name="myLastName" id="lastName" /></td>
+						<td><h:outputLabel for="login" value="Login:"
+								style="font-weight:bold" /></td>
+						<td><h:inputText id="login" disabled="true"
+								value="#{userDetails.login}" required="true" label="Login" /></td>
+						<td><h:message for="login" /></td>
 					</tr>
 					<tr>
-						<th><label for="age">Age</label> :</th>
-						<td><h:inputText type="text" name="myAge" id="age" /></td>
+						<td><h:outputLabel for="surname" value="Surname:"
+								style="font-weight:bold" /></td>
+						<td><h:inputText id="surname" value="#{userDetails.surname}"
+								required="true" label="Surname" /></td>
+						<td><h:message for="surname" /></td>
 					</tr>
 					<tr>
-						<th><label for="email">Email address</label> :</th>
-						<td><h:inputText type="email" name="myEmail" id="email" /></td>
+						<td><h:outputLabel for="lastname" value="Lastname:"
+								style="font-weight:bold" /></td>
+						<td><h:inputText id="lastname"
+								value="#{userDetails.lastname}" required="true" label="Lastname" /></td>
+						<td><h:message for="lastname" /></td>
 					</tr>
 					<tr>
-						<th><label for="Login">Login</label> :</th>
-						<td><h:inputText type="login" name="myLogin" id="login" /></td>
+						<td><h:outputLabel for="age" value="Age:"
+								style="font-weight:bold" /></td>
+						<td><h:inputText id="age" value="#{userDetails.age}"
+								required="true" label="Age" /></td>
+						<td><h:message for="age" /></td>
 					</tr>
 					<tr>
-						<th><label for="pwd">Password</label> :</th>
-						<td><h:inputSecret type="password" name="myPwd" id="pwd" /></td>
+						<td><h:outputLabel for="email" value="Email:"
+								style="font-weight:bold" /></td>
+						<td><h:inputText id="email" value="#{userDetails.email}"
+								required="true" label="Email" /></td>
+						<td><h:message for="email" /></td>
 					</tr>
 					<tr>
-						<th><label for="repwd">Re-enter Password</label> :</th>
-						<td><h:inputSecret type="password" name="myRePwd" id="rePwd" /></td>
+						<td><h:outputLabel for="pwd" value="Password:"
+								style="font-weight:bold" /></td>
+						<td><h:inputSecret id="pwd" value="#{userDetails.pwd}"
+								required="true" label="Password" /></td>
+						<td><h:message for="pwd" /></td>
 					</tr>
 					<tr>
-						<th><h:commandButton type="submit" name="myCancel"
-								id="cancel" value="cancel" /></th>
-						<td><h:commandButton type="submit" name="mySave" id="save"
-								value="Save" /></td>
+						<td><h:commandButton ajax="false"
+								action="#{adminControler.updateUser(userDetails, checkbox.value)}"
+								name="saveEdits" id="saveEdits" value="Save" /></td>
 					</tr>
 				</table>
-			</fieldset>
-		</h:form>
+			</h:form>
+		</fieldset>
+		<fieldset>
+			<h:form rendered="#{userDetails.login == null}" id="grid2">
+				<table>
+					<tr>
+						<td><h:selectBooleanCheckbox binding="#{checkbox2}"
+								value="false" /></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="login" value="Login:"
+								style="font-weight:bold" /></td>
+						<td><h:inputText id="login"
+								value="#{userDetails.login}" required="true" label="Login" /></td>
+						<td><h:message for="login" /></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="surname" value="Surname:"
+								style="font-weight:bold" /></td>
+						<td><h:inputText id="surname" value="#{userDetails.surname}"
+								required="true" label="Surname" /></td>
+						<td><h:message for="surname" /></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="lastname" value="Lastname:"
+								style="font-weight:bold" /></td>
+						<td><h:inputText id="lastname"
+								value="#{userDetails.lastname}" required="true" label="Lastname" /></td>
+						<td><h:message for="lastname" /></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="age" value="Age:"
+								style="font-weight:bold" /></td>
+						<td><h:inputText id="age" value="#{userDetails.age}"
+								required="true" label="Age" /></td>
+						<td><h:message for="age" /></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="email" value="Email:"
+								style="font-weight:bold" /></td>
+						<td><h:inputText id="email" value="#{userDetails.email}"
+								required="true" label="Email" /></td>
+						<td><h:message for="email" /></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="pwd" value="Password:"
+								style="font-weight:bold" /></td>
+						<td><h:inputSecret id="pwd" value="#{userDetails.pwd}"
+								required="true" label="Password" /></td>
+						<td><h:message for="pwd" /></td>
+					</tr>
+					<tr>
+						<td><h:commandButton ajax="false"
+								action="#{adminControler.createUser(userDetails, checkbox2.value)}"
+								name="saveEdits" id="saveEdits" value="Save" /></td>
+					</tr>
+				</table>
+			</h:form>
+		</fieldset>
 	</ui:define>
 </ui:composition>

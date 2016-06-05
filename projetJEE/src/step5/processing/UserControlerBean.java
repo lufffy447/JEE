@@ -31,6 +31,7 @@ public class UserControlerBean {
 	public UserControlerBean() {
 		this.userDao = DaoFabric.getInstance().createUserDao();
 	}
+
 	
 	public int getCount() {
 		return this.count;
@@ -96,19 +97,11 @@ public class UserControlerBean {
 				.getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		// place la liste de recette dans l'espace de mémoire de JSF
-		sessionMap.put("userList", userList);
+		sessionMap.put("userList", userList.getUserList());
 		return list;
 	}
 	
-	public void delete(UserModelBean user) {
-		this.userDao.delete(user);
-	}
-	
-	public UserModelBean displayUserEdition(UserModelBean user){
-		UserModelBean userDetails;
-		userDetails = this.userDao.getUserDetails(user);
-		return userDetails;
-	}
+
 	
 	public void validateName(FacesContext context, UIComponent comp, Object value) {
 		String name = (String) value;
