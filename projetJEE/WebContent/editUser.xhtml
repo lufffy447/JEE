@@ -14,7 +14,6 @@
 					<tr>
 						<th>Name</th>
 						<th>Login</th>
-						<th>Admin</th>
 						<th>Suppression</th>
 						<th>Edition</th>
 					</tr>
@@ -22,8 +21,8 @@
 						<tr>
 							<td>#{user.surname}</td>
 							<td>#{user.login}</td>
-							<td><h:commandButton value="delete" action="#{userControler.delete(recipe)}" /></td>
-							<td><h:commandButton value="détails" action="#{userControler.displayUserEdition(recipe)}" /></td>
+							<td><h:commandButton value="delete" action="#{adminControler.deleteUser(user)}" /></td>
+							<td><h:commandButton value="détails" action="#{userControler.displayUserEdition(user)}" /></td>
 						</tr>
 					</ui:repeat>
 				</table>
@@ -35,7 +34,7 @@
 						<td><h:inputText type="text" name="myFirstName"
 								id="firstName" /></td>
 						<h:outputText value="Admin: " />
-						<p:selectBooleanCheckbox value="#{selectAdmin.value}" />
+						<p:selectBooleanCheckbox  />
 					</tr>
 					<tr>
 						<th><label for="lastName">Last name</label> :</th>

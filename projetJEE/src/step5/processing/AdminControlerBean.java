@@ -128,9 +128,14 @@ public class AdminControlerBean
 				&& user.getPwd() != null
 				&& user.getSurname() != null) 
 		{
-			//this.userDao.addUser(user, isAdmin);
+			this.userDao.addUser(user, isAdmin);
 		}
 		
 		return "";
+	}
+	
+	public boolean isAdmin(UserModelBean user)
+	{
+		return this.userDao.isAdmin(user);
 	}
 }
