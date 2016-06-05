@@ -59,8 +59,36 @@ body {
 	text-align: center;
 }
 
+#table3 tr td {
+	width: 33.3%;
+	padding-left: 5%;
+	padding-right: 5%
+}
+
 #table4 {
 	width: 100%;
+}
+
+#table5 {
+	margin-left: 30%;
+	margin-right: 30%;
+}
+
+#gridTable, #gridTable2, #gridTable3 {
+	margin-left: 30%;
+	margin-right: 30%;
+}
+
+#table6, #table7 {
+	width: 200px;
+	height: 200px;
+}
+#table6 {
+	border: solid 1px black;
+}
+
+#recipeList tr{
+	width: 20%;
 }
 
 #commentForm {

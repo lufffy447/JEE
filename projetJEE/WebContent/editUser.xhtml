@@ -7,7 +7,7 @@
 		<h1 id="titreTemp" class="adminPage">Edit User</h1>
 	</ui:define>
 	<ui:define name="body">
-		<fieldset>
+		<fieldset id="gridTable2">
 			<h:form>
 
 				<table>
@@ -26,7 +26,7 @@
 									value="#{adminControler.isAdmin(user)}" /></td>
 							<td><h:commandButton value="delete"
 									action="#{adminControler.deleteUser(user)}" /></td>
-							<td><h:commandButton value="détails"
+							<td><h:commandButton value="edit"
 									action="#{adminControler.displayUserEdition(user)}" /></td>
 						</tr>
 					</ui:repeat>
@@ -35,7 +35,7 @@
 								action="#{adminControler.displayUserCreation}" />
 			</h:form>
 		</fieldset>
-		<fieldset>
+		<fieldset id="gridTable">
 			<h:form rendered="#{userDetails.login != null}" id="grid">
 				<table>
 					<tr>
@@ -92,7 +92,7 @@
 				</table>
 			</h:form>
 		</fieldset>
-		<fieldset>
+		<fieldset id="gridTable3">
 			<h:form rendered="#{userDetails.login == null}" id="grid2">
 				<table>
 					<tr>
@@ -147,7 +147,11 @@
 								name="saveEdits" id="saveEdits" value="Save" /></td>
 					</tr>
 				</table>
+				
 			</h:form>
 		</fieldset>
+		<h:form>
+			<h:commandButton action="adminManagement" name="retour" id="retour" value="retour"></h:commandButton>
+		</h:form>
 	</ui:define>
 </ui:composition>

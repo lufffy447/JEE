@@ -9,22 +9,20 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import com.sun.faces.context.SessionMap;
-
 import step5.dao.fabric.DaoFabric;
 import step5.dao.instance.CommentDao;
 import step5.dao.instance.RecipesDao;
 import step5.model.CommentBean;
 import step5.model.RecipeListModelBean;
 import step5.model.RecipeModel;
-import step5.model.RecipeSubmissionModelBean;
-import step5.model.UserModelBean;
+import step5.model.RepeatPaginator;
 
 @ManagedBean(name="recipeControler")
 @ApplicationScoped
 public class RecipeControlerBean {
 	private RecipesDao recipeDao;
 	private CommentDao commentDao;
+	private RepeatPaginator paginator;
 
 	public RecipeControlerBean() {
 		this.recipeDao = DaoFabric.getInstance().createRecipesDao();
@@ -57,6 +55,7 @@ public class RecipeControlerBean {
 				.getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		sessionMap.put("searchRecipeList", recipeList);
+		paginator = new RepeatPaginator(recipeList);
 		return "recipesList";
 	}
 	
@@ -82,7 +81,7 @@ public class RecipeControlerBean {
 	{
 		this.recipeDao.updateRecipe(recipe);
 	}
-	
+
 	public void displayRecipeEdition(RecipeModel recipe)
 	{
 		ExternalContext externalContext = FacesContext.getCurrentInstance()
@@ -101,4 +100,9 @@ public class RecipeControlerBean {
 		requestMap.put("recipeDetails", recipe);
 	}	
  
+
+	public RepeatPaginator getPaginator() {
+		return paginator;
+	}
+		
 }

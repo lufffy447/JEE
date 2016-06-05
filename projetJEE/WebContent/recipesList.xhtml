@@ -9,29 +9,49 @@
 	</ui:define>
 	<ui:define name="body">
 	<h:form>
-		<table>
+		<table id="recipeList">
+			<ui:repeat value="#{recipeControler.paginator.model}" var="recipe">
 			<tr>
-				<th>Title</th>
-				<th>Type</th>
-				<th>Description</th>
-				<th>Expertise</th>
-				<th>Duration</th>
-				<th>NbPeople</th>
-				<th>Details</th>
+				<td>
+					<table id="table6">
+						<tr>
+							<td><h:graphicImage value="resources/images/cook.png" width="40%"/></td>
+							<td><h:outputText id="recipeType" value="#{recipe.type}" required="true"/></td>
+						</tr>
+						<tr>
+							<td><h:graphicImage value="resources/images/horloge.png" width="40%" /></td>
+							<td><h:outputText id="recipeDuration" value="#{recipe.duration} minutes" required="true"/></td>
+						</tr>
+						<tr>
+							<td><h:graphicImage value="resources/images/people.png" width="40%" /></td>
+							<td><h:outputText id="recipeNbpeople" value="#{recipe.nbpeople} persons" required="true"/></td>
+						</tr>
+						<tr>
+							<td><h:graphicImage value="resources/images/note.png" width="40%" /></td>
+							<td><p:rating value="#{recipe.expertise}" stars="5" readonly="true"></p:rating></td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table id="table7">
+						<tr>
+							<td><h:outputText id="recipeTitle" value="#{recipe.title}" required="true" styleClass="title"/></td>
+						</tr>
+						<tr>
+							<td><h:outputText id="recipeDescription" value="#{recipe.description}" required="true" styleClass="desc"/></td>
+						</tr>
+					</table>
+				</td>
+				<td><h:commandButton action="#{recipeControler.displayRecipeDetail(recipe)}" value="Détails" /></td>
 			</tr>
-			<ui:repeat value="#{searchRecipeList}" var="recipe">
-				<tr>
-					<td>#{recipe.title}</td>
-					<td>#{recipe.type}</td>
-					<td>#{recipe.description}</td>
-					<td>#{recipe.expertise}</td>
-					<td>#{recipe.duration}</td>
-					<td>#{recipe.nbpeople}</td>
-					<td><h:commandButton value="détails" action="#{recipeControler.displayRecipeDetail(recipe)}" />
-					</td>
-				</tr>
 			</ui:repeat>
+			<h:commandButton value="&lt; prev" action="#{recipeControler.paginator.prev}"/>
+        	<h:outputText value="#{recipeControler.paginator.pageIndex} / #{recipeControler.paginator.pages}"/>
+        	<h:commandButton value="next &gt;" action="#{recipeControler.paginator.next}"/>
+        	<h:inputHidden value="#{recipeControler.paginator.pageIndex}"/>
 		</table>
+		<h:commandButton action="recipes" value="retour" />	
+
 	</h:form>	
 	</ui:define>
 	</ui:composition>
