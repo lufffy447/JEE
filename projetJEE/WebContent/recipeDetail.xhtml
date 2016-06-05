@@ -89,15 +89,14 @@
 					<td><h:inputTextarea id="comment" value="#{commentBean.comment}" rows="10" cols="50"></h:inputTextarea></td>
 				</tr>
 				<tr>
-					<th><h:commandButton action="menu" name="myCancel"
+					<th><h:commandButton action="recipesList" name="myCancel"
 								id="cancel" value="cancel" /></th>
 					<td><h:commandButton action="#{commentControlerBean.leaveComment(commentBean)}" name="myComment" id="leaveComment" value="leave comment" >
 							<f:ajax render="commentForm" execute="@form"/>
 						</h:commandButton>		
 					</td>
 				</tr>			
-			</table>
-		
+			</table>	
 	</ui:fragment>
 	</h:form>
 </ui:define>

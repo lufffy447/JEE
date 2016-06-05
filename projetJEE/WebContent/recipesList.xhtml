@@ -42,13 +42,15 @@
 						</tr>
 					</table>
 				</td>
+				<td><h:commandButton action="#{recipeControler.displayRecipeDetail(recipe)}" value="Détails" /></td>
 			</tr>
 			</ui:repeat>
 			<h:commandButton value="&lt; prev" action="#{recipeControler.paginator.prev}"/>
         	<h:outputText value="#{recipeControler.paginator.pageIndex} / #{recipeControler.paginator.pages}"/>
         	<h:commandButton value="next &gt;" action="#{recipeControler.paginator.next}"/>
         	<h:inputHidden value="#{recipeControler.paginator.pageIndex}"/>
-		</table>	
+		</table>
+		<h:commandButton action="recipes" value="retour" />	
 
 	</h:form>	
 	</ui:define>

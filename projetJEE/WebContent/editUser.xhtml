@@ -26,12 +26,12 @@
 									value="#{adminControler.isAdmin(user)}" /></td>
 							<td><h:commandButton value="delete"
 									action="#{adminControler.deleteUser(user)}" /></td>
-							<td><h:commandButton value="détails"
+							<td><h:commandButton value="edit"
 									action="#{adminControler.displayUserEdition(user)}" /></td>
 						</tr>
 					</ui:repeat>
 				</table>
-										<h:commandButton value="détails"
+										<h:commandButton value="create"
 								action="#{adminControler.displayUserCreation}" />
 			</h:form>
 		</fieldset>
