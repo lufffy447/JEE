@@ -4,12 +4,26 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core" template="template.xhtml">
 	<ui:define name="leftHeaderSection">
-		<h1 id="titreTemp" class="recipePage">Edit Recipe</h1>
+		<h1 id="titreTemp" class="adminPage">Edit Recipe</h1>
+	</ui:define>
+	<ui:define name="middleHeaderSection">
+		<p>Last admin connection:
+			#{adminControler.getLastConnectionDate()}
+			#{adminControler.getLastConnectionDuration()}</p>
+	</ui:define>
+	<ui:define name="rightHeaderSection">
+		<h:form>
+			<p>Welcome #{loggedAdmin.surname}</p>
+			<h:commandLink action="#{adminControler.logOut(loggedAdmin)}">
+				<p>Log out</p>
+			</h:commandLink>
+
+		</h:form>
 	</ui:define>
 	<ui:define name="body">
-		<h1>admin editer recette</h1>
-		<h:form>
-			<fieldset>
+		<fieldset>
+			<h:form>
+
 				<table>
 					<tr>
 						<th>Title</th>
@@ -19,18 +33,24 @@
 					<ui:repeat value="#{recipeControler.loadAllRecipe()}" var="recipe">
 						<tr>
 							<td>#{recipe.title}</td>
-							<td><h:commandButton value="delete" action="#{recipeControler.delete(recipe)}" /></td>
-							<td><h:commandButton value="détails" action="#{recipeControler.displayRecipeEdition(recipe)}" /></td>
+							<td><h:commandButton value="delete"
+									action="#{recipeControler.delete(recipe)}" /></td>
+							<td><h:commandButton value="détails"
+									action="#{recipeControler.displayRecipeEdition(recipe)}" /></td>
 						</tr>
 					</ui:repeat>
 				</table>
-			</fieldset>
-			<fieldset>
+									<h:commandButton value="create"
+								action="#{recipeControler.displayRecipeCreation}" />
+			</h:form>
+		</fieldset>
+		<fieldset>
+			<h:form rendered="#{recipeDetails.title != null}">
 
 				<table>
 					<tr>
-						<td><label for="title">Title</label> : <h:inputText
-								type="text" name="myTitle" id="title" /></td>
+						<td><label for="title">Title</label> <h:inputText type="text"
+								name="myTitle" id="title" value="#{recipeDetails.title}" /></td>
 					</tr>
 					<tr>
 						<td><h:graphicImage value="resources/images/horloge.png" /></td>
@@ -40,9 +60,9 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td><p:spinner min="0" /></td>
+						<td><p:spinner min="0" value="#{recipeDetails.duration}" /></td>
 						<td></td>
-						<td><p:rating value="0" stars="5"></p:rating></td>
+						<td><p:rating stars="5" value="#{recipeDetails.expertise}"></p:rating></td>
 					</tr>
 					<tr>
 						<td><h:graphicImage value="resources/images/note.png" /></td>
@@ -52,30 +72,81 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td><p:inputText id="txt1" value="#{sliderView.number1}" />
+						<td><p:inputText id="txt1" value="#{recipeDetails.nbpeople}" />
 							<p:slider for="txt1" maxValue="10" minValue="0" /></td>
 						<td></td>
-						<td><p:selectOneMenu id="city" value="#{dropdownView.recipe}"
+						<td><p:selectOneMenu id="city" value="#{recipeDetails.type}"
 								style="width:150px">
-								<f:selectItem itemLabel="Select City" itemValue=""
-									noSelectionOption="true" />
-								<f:selectItems value="#{dropdownView.recipes}" />
+								<f:selectItem itemLabel="Salad" itemValue="Salad" />
+								<f:selectItem itemLabel="Meal" itemValue="Meal" />
+								<f:selectItem itemLabel="Fish" itemValue="Fish" />
+								<f:selectItem itemLabel="Dessert" itemValue="Dessert" />
 							</p:selectOneMenu></td>
 					</tr>
-
 					<tr>
-						<h:inputText type="text" name="myCommentaire" id="commentaire" />
-						<h:commandButton type="submit" name="myCommentaire"
-							id="commentaireButton" value="Ajouter un commentaire" />
+						<td><h:inputText type="text" name="content" id="content"
+							value="#{recipeDetails.description}" />
+							</td>
 					</tr>
 					<tr>
 						<th><h:commandButton type="submit" name="myCancel"
 								id="cancel" value="cancel" /></th>
-						<td><h:commandButton type="submit" name="mySave" id="save"
+						<td><h:commandButton type="submit" name="mySave" action="#{recipeControler.updateRecipe(recipeDetails)}"
 								value="Save" /></td>
 					</tr>
 				</table>
-			</fieldset>
-		</h:form>
+			</h:form>
+			<h:form rendered="#{recipeDetails.title == null}">
+
+				<table>
+					<tr>
+						<td><label for="title">Title</label> <h:inputText type="text"
+								name="myTitle" id="title" value="#{recipeDetails.title}" /></td>
+					</tr>
+					<tr>
+						<td><h:graphicImage value="resources/images/horloge.png" /></td>
+						<td>Preparation Duration</td>
+						<td><h:graphicImage value="resources/images/note.png" /></td>
+						<td>Cook expertise</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><p:spinner min="0" value="#{recipeDetails.duration}" /></td>
+						<td></td>
+						<td><p:rating stars="5" value="#{recipeDetails.expertise}"></p:rating></td>
+					</tr>
+					<tr>
+						<td><h:graphicImage value="resources/images/note.png" /></td>
+						<td>For how many people</td>
+						<td><h:graphicImage value="resources/images/cook.png" /></td>
+						<td>Cook type</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><p:inputText id="txt1" value="#{recipeDetails.nbpeople}" />
+							<p:slider for="txt1" maxValue="10" minValue="0" /></td>
+						<td></td>
+						<td><p:selectOneMenu id="city" value="#{recipeDetails.type}"
+								style="width:150px">
+								<f:selectItem itemLabel="Salad" itemValue="Salad" />
+								<f:selectItem itemLabel="Meal" itemValue="Meal" />
+								<f:selectItem itemLabel="Fish" itemValue="Fish" />
+								<f:selectItem itemLabel="Dessert" itemValue="Dessert" />
+							</p:selectOneMenu></td>
+					</tr>
+					<tr>
+						<td><h:inputText type="text" name="content" id="content"
+							value="#{recipeDetails.description}" />
+							</td>
+					</tr>
+					<tr>
+						<th><h:commandButton type="submit" name="myCancel"
+								id="cancel" value="cancel" /></th>
+						<td><h:commandButton type="submit" name="mySave" action="#{recipeControler.addRecipe(recipeDetails)}"
+								value="Save" /></td>
+					</tr>
+				</table>
+			</h:form>
+		</fieldset>
 	</ui:define>
 </ui:composition>

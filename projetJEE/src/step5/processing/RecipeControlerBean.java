@@ -9,8 +9,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import com.sun.faces.context.SessionMap;
-
 import step5.dao.fabric.DaoFabric;
 import step5.dao.instance.CommentDao;
 import step5.dao.instance.RecipesDao;
@@ -42,7 +40,7 @@ public class RecipeControlerBean {
 				.getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		// place la liste de recette dans l'espace de mémoire de JSF
-		sessionMap.put("recipeList", recipeList);
+		sessionMap.put("recipeList", recipeList.getRecipeList());
 		return list;
 	}
 	
@@ -79,22 +77,32 @@ public class RecipeControlerBean {
 		this.recipeDao.delete(recipe);
 	}
 	
-	public RecipeModel displayRecipeEdition(RecipeModel recipe){
-		RecipeModel recipeDetails;
-		recipeDetails = this.recipeDao.getRecipeDetails(recipe);
-		return recipeDetails;
+	public void updateRecipe(RecipeModel recipe) 
+	{
+		this.recipeDao.updateRecipe(recipe);
 	}
+
+	public void displayRecipeEdition(RecipeModel recipe)
+	{
+		ExternalContext externalContext = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getSessionMap();
+		
+		requestMap.put("recipeDetails", recipe);
+	}
+	
+	public void displayRecipeCreation()
+	{
+		ExternalContext externalContext = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getSessionMap();
+		RecipeModel recipe = new RecipeModel(0, null, null, 0, 0, 0, null);
+		requestMap.put("recipeDetails", recipe);
+	}	
+ 
 
 	public RepeatPaginator getPaginator() {
 		return paginator;
 	}
 		
-	
-	
-	/*public List<String> getTypes() {
-		System.out.println("hello");
-		List<String> types = new ArrayList<String>();
-		types = this.recipeDao.getAllTypes();
-		return types;
-	}*/
 }

@@ -155,5 +155,5 @@ public class AdminControlerBean
 		UserModelBean user = new UserModelBean(null, null, 0, null, null, null);
 		requestMap.put("userDetails", user);
 	}
-	
+
 }
